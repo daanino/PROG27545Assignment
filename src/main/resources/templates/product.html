@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Product Page</title>
+    <!-- Include your stylesheet here -->
 </head>
 <body>
+
+<div th:replace="fragments :: header"></div>
+
+<div class="product-list">
+    <h2>Product List</h2>
+    <table>
+        <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Product Price</th>
+        </tr>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+        </tr>
+    </table>
+</div>
+
+<div class="add-product-form">
+    <h3>Insert Product</h3>
+    <form th:action="@{/addProduct}" method="post">
+        <!-- The product ID is not included as input because it's generated in the backend as a 9 digit integer. -->
+        <input type="text" name="name" placeholder="Product Name" required>
+        <input type="number" name="price" placeholder="Product Price" required step="0.01">
+        <button type="submit">Add Product</button>
+    </form>
+</div>
+
+<div th:replace="fragments :: footer"></div>
 
 </body>
 </html>

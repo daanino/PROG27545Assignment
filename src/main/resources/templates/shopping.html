@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Shopping Page</title>
+    <!-- Include your stylesheet here -->
 </head>
 <body>
+
+<div th:replace="fragments :: header"></div>
+
+<div class="shopping-cart">
+    <h2>Shopping Page</h2>
+    <table>
+        <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Product Price</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+            <td>
+                <form th:action="@{/addToCart(__${product.id}__)}" method="post">
+                    <button type="submit">Add to Cart</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <p>Items in the shopping cart: <span th:text="${cartSize}"></span></p>
+</div>
+
+<div th:replace="fragments :: footer"></div>
 
 </body>
 </html>
