@@ -2,6 +2,7 @@ package sheridan.bautidan.assignment1;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -15,10 +16,11 @@ public class ProductController {
     public ProductController(ProductService productService) {
         this.productService = new productService;
     }
-    @GetMapping
-    public List<Product> getProducts()
-    {
-        return productService.getProducts();
+
+    @GetMapping("/product")
+    public String showProducts(Model model) {
+        model.addAttribute("products", productService.getAllProducts());
+        return "product";
     }
 
     @PostMapping("/addProduct")

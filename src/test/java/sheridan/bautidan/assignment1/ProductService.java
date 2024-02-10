@@ -1,6 +1,8 @@
 package sheridan.bautidan.assignment1;
 import org.springframework.stereotype.Service;
+
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.Random;
 import java.util.Collection;
 
 import java.util.List;
@@ -8,7 +10,10 @@ import java.util.ArrayList;
 @Service
 public class ProductService {
     private final ConcurrentHashMap<Long, Product> products = new ConcurrentHashMap<>();
-
+    private final Random random = new Random();
+    public Collection<Product> getAllProducts() {
+        return products.values();
+    }
     public Product getProductById(long id) {
         return products.get(id);
     }
